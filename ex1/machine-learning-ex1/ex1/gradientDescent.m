@@ -16,13 +16,10 @@ for iter = 1:num_iters
     % Hint: While debugging, it can be useful to print out the values
     %       of the cost function (computeCost) and gradient here.
     %
-
-
-
-
-
-
-
+    approx = X * theta;
+    tmp = theta - (alpha / m * sum((approx-y).*X))';
+    theta(1) = tmp(1);
+    theta(2) = tmp(2);
     % ============================================================
 
     % Save the cost J in every iteration    
