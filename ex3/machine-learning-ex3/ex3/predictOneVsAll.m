@@ -25,17 +25,12 @@ X = [ones(m, 1) X];
 %
 % Hint: This code can be done all vectorized using the max function.
 %       In particular, the max function can also return the index of the 
-%       max element, for more information see 'help max'. If your examples 
+%       max element, for more information exsee 'help max'. If your examples 
 %       are in rows, then, you can use max(A, [], 2) to obtain the max 
 %       for each row.
 %       
-
-
-
-
-
-
-
+[m p] = max(sigmoid(X * all_theta')');
+p = p';
 % =========================================================================
 
 
