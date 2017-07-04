@@ -69,8 +69,21 @@ y_vec = 1:num_labels == y;
 J = -1 / m * sum(sum(y_vec .* log(a3) + (1 - y_vec) .* log (1 - a3))) ...
     + lambda / (2 * m) * (sum(sum(Theta1(:,2:end) .^ 2)) + sum(sum(Theta2(:,2:end) .^ 2)));
 
-
-
+D1 = zeros(size(Theta1));
+D2 = zeros(size(Theta2));
+for t = 1:m
+    z2t = [1 X(t,:)] * Theta1';
+    a2t = sigmoid(z2t);
+    z3t = [1 a2t] * Theta2';
+    a3t = sigmoid(z3t);
+    yt_vec = 1:num_labels == y(t,:);
+    d3 = (a3t - yt_vec)';
+    d2 = Theta2(:,2:end)' * d3 .* sigmoidGradient(z2t)';
+    D2 = D2 + d3 * [1 a2t];
+    D1 = D1 + d2 * [1 X(t,:)];
+end
+Theta1_grad = 1 / m * D1;
+Theta2_grad = 1 / m * D2;
 
 % -------------------------------------------------------------
 
